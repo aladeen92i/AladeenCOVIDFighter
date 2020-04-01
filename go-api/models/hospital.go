@@ -9,7 +9,6 @@ import (
 
 type Patient struct {
 	gorm.Model
-	Patient_id uint `json:"patient_id"`
 	Age uint `json:"age"`
 	Sex string `json:"sex"`
 	Doctor_id uint `json:"doctor_id"`
@@ -39,7 +38,7 @@ func (patient *Patient) Validate() (map[string]interface{}, bool) {
 		return utils.Message(false, "Sex should be on the payload"), false
 	}
 
-	if patient.Patient_id <= 0 {
+	if patient.Doctor_id <= 0 {
 		return utils.Message(false, "User is not recognized"), false
 	}
 

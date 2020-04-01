@@ -21,7 +21,7 @@ type Token struct {
 //a struct to rep user account
 type Account struct {
 	gorm.Model
-	Doctor_id uint `json:"patient_id"`
+	Doctor_id uint `json:"doctor_id"`
 	Name string `json:"name"`
 	WorkIn uint `json:"hospital_id"`
 	Email    string `json:"email"`
@@ -66,7 +66,7 @@ func (account *Account) Create() (map[string]interface{}) {
 
 	GetDB().Create(account)
 
-	if account.Doctor_id <= 0 {
+	if account.ID <= 0 {
 		return utils.Message(false, "Failed to create account, connection error.")
 	}
 
