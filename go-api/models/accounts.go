@@ -12,6 +12,7 @@ import (
 /*
 JWT claims struct
 */
+
 type Token struct {
 	UserId uint
 	jwt.StandardClaims
@@ -20,6 +21,9 @@ type Token struct {
 //a struct to rep user account
 type Account struct {
 	gorm.Model
+	Doctor_id uint `json:"patient_id"`
+	Name string `json:"name"`
+	WorkIn uint `json:"hospital_id"`
 	Email    string `json:"email"`
 	Password string `json:"password"`
 	Token    string `json:"token";sql:"-"`
