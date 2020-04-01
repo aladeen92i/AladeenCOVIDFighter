@@ -1,14 +1,20 @@
 import React, { createContext, useReducer } from 'react';
-import AppReducer from './AppReducer'
+import AppReducer from './AppReducer';
+
+
 
 const initialState = {
+    isAuthenticated: false,
+    user: {},
     patients: [
         { id: 1, name: 'Aladeen', location: '92i', disease: "COVID-19"}
     ]
 }
 
 export const GlobalContext = createContext(initialState);
+
 export const GlobalProvider = ({ children }) => {
+
     const [state, dispatch] = useReducer(AppReducer, initialState);
 
     function removePatient(id) {
@@ -32,11 +38,15 @@ export const GlobalProvider = ({ children }) => {
         });
     };
 
+    function login(email, password) {
+        if(wind)
+    }
     return (<GlobalContext.Provider value={{
         patients: state.patients,
         removePatient,
         addPatient,
-        editPatient
+        editPatient,
+
     }}>
         {children}
     </GlobalContext.Provider>);
