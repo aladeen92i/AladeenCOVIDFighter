@@ -19,7 +19,7 @@ type Hospital struct {
 	gorm.Model
 	Name   string `json:"name"`
 	Hospital_id uint   `json:"hospital_id"` //The user/doctor that this patient belongs to
-}
+ }
 
 /*
  This struct function validate the required parameters sent through the http request body

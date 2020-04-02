@@ -32,11 +32,22 @@ export default (state, action) => {
             };
 
         case 'SET_CURRENT_USER':
+            
             return {
+                ...state,
                 isAuthenticated: !!Object.keys(action.user).length,
                 user: action.user
             };
 
-        default: return state;
+
+        case 'ADD_ERROR':
+            console.log(action.error);
+            return {...state, message: action.error};
+
+        case 'REMOVE_ERROR':
+            return {...state, message: null};
+
+        default:
+            return state;
     }
 }

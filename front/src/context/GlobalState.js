@@ -1,14 +1,12 @@
 import React, { createContext, useReducer } from 'react';
 import AppReducer from './AppReducer';
-
-
+import api from '../utils/api';
 
 const initialState = {
     isAuthenticated: false,
     user: {},
-    patients: [
-        { id: 1, name: 'Aladeen', location: '92i', disease: "COVID-19"}
-    ]
+    patients: [{}],
+    message: {}
 }
 
 export const GlobalContext = createContext(initialState);
@@ -38,16 +36,66 @@ export const GlobalProvider = ({ children }) => {
         });
     };
 
-    function login(email, password) {
-        if(wind)
+    function setCurrentUser(user) {
+        dispatch({
+            type: 'SET_CURRENT_USER',
+            payload: user
+        });
+    };
+    function addError(error) {
+        dispatch({
+            type: 'ADD_ERROR',
+            payload: error,
+        });
+    };
+    
+    function removeError() {
+        dispatch({
+            type: 'REMOVE_ERROR'
+        })
+    };
+    function logout() {
+        return dispatch => {
+            localStorage.clear();
+            api.setToken(null);
+            dispatch(setCurrentUser({}));
+            dispatch(removeError());
+        }
     }
+    
+    function authUser(path, data) {
+        return async dispatch => {
+            try {
+                //console.log(path);
+                //console.log(data);
+                const {token, ...user} = await api.call('post', `auth/${path}`, data);
+                localStorage.setItem('jwtToken', token);
+                api.setToken(token);
+                dispatch(setCurrentUser(user));
+                dispatch(removeError());
+            } catch(err) {
+                //console.log(err)
+                const error = err.response.data;
+                dispatch(addError(error.message)); 
+            }
+        }
+    }
+    
     return (<GlobalContext.Provider value={{
         patients: state.patients,
+        user: state.user,
+        message: state.message,
         removePatient,
         addPatient,
         editPatient,
+        setCurrentUser,
+        addError,
+        removeError,
+        logout,
+        authUser
 
     }}>
         {children}
+        
     </GlobalContext.Provider>);
 }
