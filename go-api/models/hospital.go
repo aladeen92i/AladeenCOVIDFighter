@@ -9,7 +9,6 @@ import (
 
 type Patient struct {
 	gorm.Model
-	Patient_id uint `json:"patient_id"`
 	Age uint `json:"age"`
 	Sex string `json:"sex"`
 	Doctor_id uint `json:"doctor_id"`
@@ -19,9 +18,8 @@ type Patient struct {
 type Hospital struct {
 	gorm.Model
 	Name   string `json:"name"`
-	Hospital_id uint   `json:"hospital_id"` //The user that this patient belongs to
-	//Patients[] Patient `json:patients`
-}
+	Hospital_id uint   `json:"hospital_id"` //The user/doctor that this patient belongs to
+ }
 
 /*
  This struct function validate the required parameters sent through the http request body
@@ -39,7 +37,7 @@ func (patient *Patient) Validate() (map[string]interface{}, bool) {
 		return utils.Message(false, "Sex should be on the payload"), false
 	}
 
-	if patient.Patient_id <= 0 {
+	if patient.Doctor_id <= 0 {
 		return utils.Message(false, "User is not recognized"), false
 	}
 
