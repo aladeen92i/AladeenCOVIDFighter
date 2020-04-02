@@ -18,8 +18,7 @@ type Patient struct {
 type Hospital struct {
 	gorm.Model
 	Name   string `json:"name"`
-	Hospital_id uint   `json:"hospital_id"` //The user that this patient belongs to
-	//Patients[] Patient `json:patients`
+	Hospital_id uint   `json:"hospital_id"` //The user/doctor that this patient belongs to
 }
 
 /*
