@@ -17,5 +17,5 @@ https://goethereumbook.org/smart-contract-compile
 > 
 > abigen --bin=Covid19_sol_Covid19.bin --abi=Covid19_sol_Covid19.abi --pkg=covid19 --out=Covid19.go
 
->go run clint.go
+>go run client.go
 
