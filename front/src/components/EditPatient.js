@@ -5,13 +5,13 @@ import { useHistory, Link } from "react-router-dom";
 export const Editpatient = (route) => {
     let history = useHistory();
     const { patients, editPatient } = useContext(GlobalContext);
-    const [selectedUser, setSeletedUser] = useState({ id: null, name: '', disease: '', location: '' });
+    const [selectedUser, setSelectedUser] = useState({ id: null, name: '', disease: '', location: '' });
     const currentUserId = route.match.params.id;
 
     useEffect(() => {
         const patientId = currentUserId;
         const selectedUser = patients.find(emp => emp.id === parseInt(patientId));
-        setSeletedUser(selectedUser);
+        setSelectedUser(selectedUser);
         // eslint-disable-next-line
     }, []);
 
@@ -21,7 +21,7 @@ export const Editpatient = (route) => {
         history.push('/');
     }
 
-    const handleOnChange = (userKey, value) => setSeletedUser({ ...selectedUser, [userKey]: value })
+    const handleOnChange = (userKey, value) => setSelectedUser({ ...selectedUser, [userKey]: value })
 
     if (!selectedUser || !selectedUser.id) {
         return <div>sdf</div>
